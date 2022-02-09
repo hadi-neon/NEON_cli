@@ -10,7 +10,8 @@ import 'package:very_vollgas_cli/src/commands/abfahrt/file_copy_wizard.dart';
 import 'package:very_vollgas_cli/src/commands/abfahrt/info_plist_wizard.dart';
 import 'package:very_vollgas_cli/src/commands/abfahrt/scripts_wizard.dart';
 
-const template_name = 'template_project';
+const template_name = 'NEON_template_project';
+const git_url = 'github.com:julien-neon/NEON_template_project.git';
 
 // A valid Dart identifier that can be used for a package, i.e. no
 // capital letters.
@@ -80,8 +81,9 @@ class AbfahrtCommand extends Command<int> {
     final generateDone = _logger.progress('Bin Sachen am machen');
 
     try {
+      _logger.alert('\nDas Template fliegt hier irgendwo rum: $git_url...\n');
       await _shell.run(
-        'git clone git@github.com:julien-neon/NEON_template_project.git',
+        'git clone git@$git_url',
       );
     } catch (e) {
       _logger.err(
