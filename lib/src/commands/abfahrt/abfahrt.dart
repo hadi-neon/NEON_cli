@@ -8,6 +8,7 @@ import 'package:universal_io/io.dart';
 import 'package:very_vollgas_cli/src/cli/cli.dart';
 import 'package:very_vollgas_cli/src/commands/abfahrt/file_copy_wizard.dart';
 import 'package:very_vollgas_cli/src/commands/abfahrt/info_plist_wizard.dart';
+import 'package:very_vollgas_cli/src/commands/abfahrt/mason_wizard.dart';
 import 'package:very_vollgas_cli/src/commands/abfahrt/scripts_wizard.dart';
 
 const template_name = 'NEON_template_project';
@@ -117,7 +118,14 @@ class AbfahrtCommand extends Command<int> {
     await _scriptsWiz.run();
     _logger.alert('\nDie Life-Saver-Scripts sind erstellt!\n');
 
-    Directory(templateDirectory).delete(recursive: true);
+    final _masonWiz = MasonWizard(
+        projectShell: _projectShell,
+        projectName: projectName,
+        projectDir: projectDirectory,
+        logger: (message) => _logger.alert(message));
+    await _masonWiz.run();
+
+    await Directory(templateDirectory).delete(recursive: true);
 
     generateDone('$projectName ist aufgesetzt. Jetzt schnapp sie dir, Tiger!');
 

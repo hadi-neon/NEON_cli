@@ -12,6 +12,16 @@ class Dart {
     }
   }
 
+  /// Determine whether mason_cli is installed.
+  static Future<bool> masonInstalled() async {
+    try {
+      await _Cmd.run('mason', ['--version']);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   /// Apply all fixes (`dart fix --apply`).
   static Future<void> applyFixes({
     String cwd = '.',
