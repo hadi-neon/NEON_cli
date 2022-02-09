@@ -79,10 +79,9 @@ class AbfahrtCommand extends Command<int> {
 
     final generateDone = _logger.progress('Bin Sachen am machen');
 
-    //TODO: migrate to neon git
     try {
       await _shell.run(
-        'git clone git@github.com:julienandco/template_project.git',
+        'git clone git@github.com:julien-neon/NEON_template_project.git',
       );
     } catch (e) {
       _logger.err(
