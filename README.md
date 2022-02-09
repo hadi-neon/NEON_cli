@@ -51,4 +51,4 @@ Alles, was das Template Project drauf hast, findest du im [README des Projektes]
 
 Für die hilflosen unter uns.
 
-[template_project_link]: https://github.com/julienandco/template_project
+[template_project_link]: https://github.com/julien-neon/NEON_template_project
