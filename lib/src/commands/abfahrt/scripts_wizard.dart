@@ -16,6 +16,7 @@ class ScriptsWizard {
     await _projectShell.run('chmod +x ./flutter_launcher_icons.sh');
     await _projectShell.run('chmod +x ./flutter_native_splash.sh');
     await _projectShell.run('chmod +x ./build_runner.sh');
+    await _projectShell.run('chmod +x ./pods_machen_faxen.sh');
 
     logger?.call('\nLauncher Icons werden erstellt...');
     await _projectShell.run('./flutter_launcher_icons.sh');
