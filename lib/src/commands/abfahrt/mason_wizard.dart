@@ -60,6 +60,8 @@ class MasonWizard {
 
     await _shell.run('mason get');
 
+    await Directory(path.join(projectDir, 'bricks')).delete(recursive: true);
+
     logger('\nMason ist aufgesetzt!');
   }
 }
