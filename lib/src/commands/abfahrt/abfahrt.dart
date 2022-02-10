@@ -64,7 +64,9 @@ class AbfahrtCommand extends Command<int> {
 
   @override
   Future<int> run() async {
-    final templateDirectory = path.join(Directory.current.path, template_name);
+    const tmpDirName = 'tmp';
+    final tmpDir = path.join(Directory.current.path, tmpDirName);
+    final templateDirectory = path.join(tmpDir, template_name);
     final projectDirectory = path.join(Directory.current.path, _projectName);
     final _copyWiz = FileCopyWizard(
       projectName: _projectName,
@@ -82,8 +84,10 @@ class AbfahrtCommand extends Command<int> {
     final generateDone = _logger.progress('Bin Sachen am machen');
 
     try {
+      await _shell.run('mkdir $tmpDirName');
+      final _tmpShell = Shell(workingDirectory: tmpDir);
       _logger.alert('\nDas Template fliegt hier irgendwo rum: $git_url...\n');
-      await _shell.run(
+      await _tmpShell.run(
         'git clone git@$git_url',
       );
     } catch (e) {
@@ -125,7 +129,7 @@ class AbfahrtCommand extends Command<int> {
         logger: (message) => _logger.alert(message));
     await _masonWiz.run();
 
-    await Directory(templateDirectory).delete(recursive: true);
+    await Directory(tmpDir).delete(recursive: true);
 
     generateDone('$projectName ist aufgesetzt. Jetzt schnapp sie dir, Tiger!');
 
