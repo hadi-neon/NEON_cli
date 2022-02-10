@@ -15,6 +15,12 @@ global aktivieren:
 dart pub global activate --source path pfad/zu/diesem/verzeichnis
 ```
 
+Pro Tip: Falls du gerade im Verzeichnis bist, in das du das Repo geklont hast, dann funktioniert auch ein relativer Pfad:
+
+```sh
+dart pub global activate --source path ./NEON_cli
+```
+
 ## Commands
 
 ### `NEON abfahrt`
