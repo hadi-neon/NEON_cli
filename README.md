@@ -45,7 +45,7 @@ Available commands:
 #### Wie funktioniert's?
 
 ```sh
-# Erstelle eine neue App die geile_app heißt:
+# Erstelle eine neue App, die geile_app heißt:
 NEON abfahrt geile_app
 ```
 
@@ -55,6 +55,6 @@ Alles, was das Template Project drauf hast, findest du im [README des Projektes]
 
 ### `NEON --help`
 
-Für die hilflosen unter uns.
+Für die Hilflosen unter uns.
 
 [template_project_link]: https://github.com/julien-neon/NEON_template_project
