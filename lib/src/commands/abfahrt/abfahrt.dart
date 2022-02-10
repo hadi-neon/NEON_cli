@@ -13,6 +13,7 @@ import 'package:very_vollgas_cli/src/commands/abfahrt/scripts_wizard.dart';
 
 const template_name = 'NEON_template_project';
 const git_url = 'github.com:julien-neon/NEON_template_project.git';
+const tmpDirName = 'tmp';
 
 // A valid Dart identifier that can be used for a package, i.e. no
 // capital letters.
@@ -64,7 +65,6 @@ class AbfahrtCommand extends Command<int> {
 
   @override
   Future<int> run() async {
-    const tmpDirName = 'tmp';
     final tmpDir = path.join(Directory.current.path, tmpDirName);
     final templateDirectory = path.join(tmpDir, template_name);
     final projectDirectory = path.join(Directory.current.path, _projectName);
@@ -93,11 +93,20 @@ class AbfahrtCommand extends Command<int> {
     } catch (e) {
       _logger.err(
           '\nBeim git pull ist etwas schiefgelaufen... Hast du einen Ordner namens $template_name oder $tmpDirName/$template_name im aktuellen Verzeichnis? Steckt das WLAN-Kabel?');
+      await _cleanUp(tmpDir: tmpDir);
       generateDone('Abbruch...');
       return ExitCode.cantCreate.code;
     }
 
-    await _shell.run('flutter create $projectName');
+    try {
+      await _shell.run('flutter create $projectName');
+    } catch (e) {
+      _logger.err(
+          '\nBei flutter create $projectName ist etwas schiefgelaufen...:\n\n$e');
+      await _cleanUp(tmpDir: tmpDir);
+      generateDone('Abbruch...');
+      return ExitCode.cantCreate.code;
+    }
 
     _logger.alert(
         '\nSchritt 1 abgeschlossen! Hier ging sonst immer was schief. Heute nicht!\n');
@@ -106,34 +115,78 @@ class AbfahrtCommand extends Command<int> {
     _logger.alert("NEON TEMPLATE PROJECT MAGIC STARTS NOW");
     _logger.alert("************************************");
 
-    await _copyWiz.run();
-    _logger.alert('\nDie Files sind kopiert!\n');
+    try {
+      await _copyWiz.run();
+      _logger.alert('\nDie Files sind kopiert!\n');
+    } catch (e) {
+      _logger
+          .err('\nBeim Kopieren der Files ist etwas schiefgelaufen...:\n\n$e');
+      await _cleanUp(tmpDir: tmpDir, projectDir: projectDirectory);
+      generateDone('Abbruch...');
+      return ExitCode.cantCreate.code;
+    }
 
-    await _plistWiz.run();
-    _logger.alert('Info.plist hab ich mal neu durchgewürfelt!\n');
+    try {
+      await _plistWiz.run();
+      _logger.alert('Info.plist hab ich mal neu durchgewürfelt!\n');
+    } catch (e) {
+      _logger.err(
+          '\nBeim Einfügen der Localization Keys in Info.plist ist etwas schiefgelaufen...:\n\n$e');
+      await _cleanUp(tmpDir: tmpDir, projectDir: projectDirectory);
+      generateDone('Abbruch...');
+      return ExitCode.cantCreate.code;
+    }
 
     await Flutter.pubGet(cwd: projectDirectory);
 
     final _projectShell =
         Shell(workingDirectory: projectDirectory, verbose: false);
     final _scriptsWiz = ScriptsWizard(
-        projectShell: _projectShell,
-        logger: (message) => _logger.alert(message));
-    await _scriptsWiz.run();
-    _logger.alert('\nDie Life-Saver-Scripts sind erstellt!\n');
+      projectShell: _projectShell,
+      logger: (message) => _logger.alert(message),
+      errorLogger: (message) => _logger.err(message),
+    );
+
+    try {
+      await _scriptsWiz.run();
+      _logger.alert('\nDie Life-Saver-Scripts sind erstellt!\n');
+    } catch (e) {
+      await _cleanUp(tmpDir: tmpDir, projectDir: projectDirectory);
+      generateDone('Abbruch...');
+      return ExitCode.cantCreate.code;
+    }
 
     final _masonWiz = MasonWizard(
         projectShell: _projectShell,
         projectName: projectName,
         projectDir: projectDirectory,
         logger: (message) => _logger.alert(message));
-    await _masonWiz.run();
 
-    await Directory(tmpDir).delete(recursive: true);
+    try {
+      await _masonWiz.run();
+    } catch (e) {
+      _logger
+          .err('\nBeim Aufsetzen von mason ist etwas schiefgelaufen...:\n\n$e');
+      await _cleanUp(tmpDir: tmpDir, projectDir: projectDirectory);
+      generateDone('Abbruch...');
+      return ExitCode.cantCreate.code;
+    }
+
+    await _cleanUp(tmpDir: tmpDir);
 
     generateDone('$projectName ist aufgesetzt. Jetzt schnapp sie dir, Tiger!');
 
     return ExitCode.success.code;
+  }
+
+  Future<void> _cleanUp({
+    required String tmpDir,
+    String? projectDir,
+  }) async {
+    await Directory(tmpDir).delete(recursive: true);
+    if (projectDir != null) {
+      await Directory(projectDir).delete(recursive: true);
+    }
   }
 
   /// Gets the project name.

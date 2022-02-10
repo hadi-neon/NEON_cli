@@ -34,7 +34,6 @@ class MasonWizard {
     final dartInstalled = await Dart.installed();
     if (dartInstalled) {
       await _shell.run('dart pub global activate mason_cli');
-      await _shell.run(_exportPathCommand);
       logger(
           '\nMason ist im Moment nur für diese Session aktiv. Wenn du in Zukunft alle Bricks 🧱 nutzen willst (und das willst du), dann füge jetzt diese Zeile in deine ~/.zshrc bzw. ~/.bashrc ein\n\n\n$_exportPathCommand\n\n\nund erhalte sofort 5000 Papeo Party Coins!');
       return true;
