@@ -92,7 +92,7 @@ class AbfahrtCommand extends Command<int> {
       );
     } catch (e) {
       _logger.err(
-          '\nBeim git pull ist etwas schiefgelaufen... Hast du einen Ordner namens $template_name im aktuellen Verzeichnis?');
+          '\nBeim git pull ist etwas schiefgelaufen... Hast du einen Ordner namens $template_name oder $tmpDirName/$template_name im aktuellen Verzeichnis? Steckt das WLAN-Kabel?');
       generateDone('Abbruch...');
       return ExitCode.cantCreate.code;
     }
