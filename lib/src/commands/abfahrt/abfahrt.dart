@@ -91,21 +91,22 @@ class AbfahrtCommand extends Command<int> {
         'git clone git@$git_url',
       );
     } catch (e) {
-      _logger.err(
-          '\nBeim git pull ist etwas schiefgelaufen... Hast du einen Ordner namens $template_name oder $tmpDirName/$template_name im aktuellen Verzeichnis? Steckt das WLAN-Kabel?');
-      await _cleanUp(tmpDir: tmpDir);
-      generateDone('Abbruch...');
-      return ExitCode.cantCreate.code;
+      return await _cancel(
+          errorMessage:
+              'Beim git pull ist etwas schiefgelaufen... Hast du einen Ordner namens $template_name oder $tmpDirName/$template_name im aktuellen Verzeichnis? Steckt das WLAN-Kabel?',
+          tmpDir: tmpDir,
+          generateDone: generateDone);
     }
 
     try {
       await _shell.run('flutter create $projectName');
     } catch (e) {
-      _logger.err(
-          '\nBei flutter create $projectName ist etwas schiefgelaufen...:\n\n$e');
-      await _cleanUp(tmpDir: tmpDir);
-      generateDone('Abbruch...');
-      return ExitCode.cantCreate.code;
+      return await _cancel(
+          errorMessage:
+              'Bei flutter create $projectName ist etwas schiefgelaufen...:',
+          error: e,
+          tmpDir: tmpDir,
+          generateDone: generateDone);
     }
 
     _logger.alert(
@@ -119,22 +120,25 @@ class AbfahrtCommand extends Command<int> {
       await _copyWiz.run();
       _logger.alert('\nDie Files sind kopiert!\n');
     } catch (e) {
-      _logger
-          .err('\nBeim Kopieren der Files ist etwas schiefgelaufen...:\n\n$e');
-      await _cleanUp(tmpDir: tmpDir, projectDir: projectDirectory);
-      generateDone('Abbruch...');
-      return ExitCode.cantCreate.code;
+      return await _cancel(
+          errorMessage: 'Beim Kopieren der Files ist etwas schiefgelaufen...:',
+          error: e,
+          tmpDir: tmpDir,
+          projectDir: projectDirectory,
+          generateDone: generateDone);
     }
 
     try {
       await _plistWiz.run();
       _logger.alert('Info.plist hab ich mal neu durchgewürfelt!\n');
     } catch (e) {
-      _logger.err(
-          '\nBeim Einfügen der Localization Keys in Info.plist ist etwas schiefgelaufen...:\n\n$e');
-      await _cleanUp(tmpDir: tmpDir, projectDir: projectDirectory);
-      generateDone('Abbruch...');
-      return ExitCode.cantCreate.code;
+      return await _cancel(
+          errorMessage:
+              'Beim Einfügen der Localization Keys in Info.plist ist etwas schiefgelaufen...:',
+          error: e,
+          tmpDir: tmpDir,
+          projectDir: projectDirectory,
+          generateDone: generateDone);
     }
 
     await Flutter.pubGet(cwd: projectDirectory);
@@ -151,9 +155,10 @@ class AbfahrtCommand extends Command<int> {
       await _scriptsWiz.run();
       _logger.alert('\nDie Life-Saver-Scripts sind erstellt!\n');
     } catch (e) {
-      await _cleanUp(tmpDir: tmpDir, projectDir: projectDirectory);
-      generateDone('Abbruch...');
-      return ExitCode.cantCreate.code;
+      return await _cancel(
+        tmpDir: tmpDir,
+        projectDir: projectDirectory,
+      );
     }
 
     final _masonWiz = MasonWizard(
@@ -165,11 +170,12 @@ class AbfahrtCommand extends Command<int> {
     try {
       await _masonWiz.run();
     } catch (e) {
-      _logger
-          .err('\nBeim Aufsetzen von mason ist etwas schiefgelaufen...:\n\n$e');
-      await _cleanUp(tmpDir: tmpDir, projectDir: projectDirectory);
-      generateDone('Abbruch...');
-      return ExitCode.cantCreate.code;
+      return await _cancel(
+          errorMessage: 'Beim Aufsetzen von mason ist etwas schiefgelaufen...:',
+          error: e,
+          tmpDir: tmpDir,
+          projectDir: projectDirectory,
+          generateDone: generateDone);
     }
 
     await _cleanUp(tmpDir: tmpDir);
@@ -177,6 +183,22 @@ class AbfahrtCommand extends Command<int> {
     generateDone('$projectName ist aufgesetzt. Jetzt schnapp sie dir, Tiger!');
 
     return ExitCode.success.code;
+  }
+
+  Future<int> _cancel(
+      {String? errorMessage,
+      Object? error,
+      required String tmpDir,
+      String? projectDir,
+      Function([String?])? generateDone}) async {
+    if (errorMessage != null) {
+      final loggedString =
+          '\n$errorMessage' + (error != null ? '\n\n$error' : '');
+      _logger.err(loggedString);
+    }
+    await _cleanUp(tmpDir: tmpDir, projectDir: projectDir);
+    generateDone?.call('Storno!');
+    return ExitCode.cantCreate.code;
   }
 
   Future<void> _cleanUp({
