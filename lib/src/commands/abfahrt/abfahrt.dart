@@ -85,7 +85,7 @@ class AbfahrtCommand extends Command<int> {
 
     try {
       await _shell.run('mkdir $tmpDirName');
-      final _tmpShell = Shell(workingDirectory: tmpDir);
+      final _tmpShell = Shell(workingDirectory: tmpDir, verbose: false);
       _logger.alert('\nDas Template fliegt hier irgendwo rum: $git_url...\n');
       await _tmpShell.run(
         'git clone git@$git_url',
