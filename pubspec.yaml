@@ -1,7 +1,7 @@
-name: very_vollgas_cli
+name: NEON_cli
 description: Ein absolutes High-Performer-Tool, vom wilden Typen für wilde Typen.
 version: 0.0.1
-homepage: https://github.com/julienandco/candyman_flutter_cli
+homepage: https://github.com/julien-neon/NEON_cli
 
 environment:
   sdk: ">=2.13.0 <3.0.0"
@@ -19,4 +19,4 @@ dev_dependencies:
   build_version: ^2.0.0
 
 executables:
-  very_vollgas:
+  NEON:

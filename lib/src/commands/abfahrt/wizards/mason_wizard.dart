@@ -1,6 +1,6 @@
+import 'package:NEON_cli/src/cli/cli.dart';
 import 'package:process_run/shell.dart';
 import 'package:universal_io/io.dart';
-import 'package:very_vollgas_cli/src/cli/cli.dart';
 import 'package:path/path.dart' as path;
 
 class MasonWizard {

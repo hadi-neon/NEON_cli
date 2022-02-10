@@ -1,6 +1,6 @@
+import 'package:NEON_cli/src/command_runner.dart';
 import 'package:process_run/shell.dart';
 import 'package:universal_io/io.dart';
-import 'package:very_vollgas_cli/src/command_runner.dart';
 
 Future<void> main(List<String> args) async {
   var shell = Shell(verbose: false);

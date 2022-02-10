@@ -1,15 +1,15 @@
+import 'package:NEON_cli/src/commands/commands.dart';
+import 'package:NEON_cli/src/version.dart';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:mason/mason.dart';
 import 'package:process_run/shell.dart';
-import 'package:very_vollgas_cli/src/commands/commands.dart';
-import 'package:very_vollgas_cli/src/version.dart';
 
 /// The package name.
-const packageName = 'very_vollgas_cli';
+const packageName = 'NEON_cli';
 
 /// {@template very_vollgas_command_runner}
-/// A [CommandRunner] for the Very Vollgas CLI.
+/// A [CommandRunner] for the NEON CLI.
 /// {@endtemplate}
 
 class VeryVollgasCommandRunner extends CommandRunner<int> {
@@ -18,7 +18,7 @@ class VeryVollgasCommandRunner extends CommandRunner<int> {
     required Shell shell,
     Logger? logger,
   })  : _logger = logger ?? Logger(),
-        super('very_vollgas',
+        super('NEON',
             '🥵 Ein absolutes High-Performer-Tool, vom wilden Typen für wilde Typen.') {
     argParser
       ..addFlag(

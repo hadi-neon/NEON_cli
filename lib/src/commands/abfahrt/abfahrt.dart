@@ -1,3 +1,4 @@
+import 'package:NEON_cli/src/cli/cli.dart';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:mason/mason.dart';
@@ -5,11 +6,8 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
 import 'package:process_run/shell.dart';
 import 'package:universal_io/io.dart';
-import 'package:very_vollgas_cli/src/cli/cli.dart';
-import 'package:very_vollgas_cli/src/commands/abfahrt/file_copy_wizard.dart';
-import 'package:very_vollgas_cli/src/commands/abfahrt/info_plist_wizard.dart';
-import 'package:very_vollgas_cli/src/commands/abfahrt/mason_wizard.dart';
-import 'package:very_vollgas_cli/src/commands/abfahrt/scripts_wizard.dart';
+
+import 'wizards/wizards.dart';
 
 const template_name = 'NEON_template_project';
 const git_url = 'github.com:julien-neon/NEON_template_project.git';
@@ -55,7 +53,7 @@ class AbfahrtCommand extends Command<int> {
   String get name => 'abfahrt';
 
   @override
-  String get invocation => 'very_vollgas abfahrt <output directory>';
+  String get invocation => 'NEON abfahrt <output directory>';
 
   /// [ArgResults] which can be overridden for testing.
   @visibleForTesting

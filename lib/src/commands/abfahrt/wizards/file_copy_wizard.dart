@@ -1,6 +1,6 @@
+import 'package:NEON_cli/src/commands/commands.dart';
 import 'package:universal_io/io.dart';
 import 'package:path/path.dart' as path;
-import 'package:very_vollgas_cli/src/commands/abfahrt/abfahrt.dart';
 
 //TODO: vllt doch mason? ist echt ugly was hier abgeht
 class FileCopyWizard {

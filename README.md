@@ -1,4 +1,4 @@
-# Very VOLLGAS CLI
+# NEON CLI
 
 Developed mit 💙 by NEON Software Studios
 
@@ -17,7 +17,7 @@ dart pub global activate --source path pfad/zu/diesem/verzeichnis
 
 ## Commands
 
-### `very_vollgas abfahrt`
+### `NEON abfahrt`
 
 Erstellt dir ein neues Flutter Projekt anhand des [NEON Template Project][template_project_link]. Dauert ungefähr 3.5 Tornados 🍺
 
@@ -25,14 +25,14 @@ Erstellt dir ein neues Flutter Projekt anhand des [NEON Template Project][templa
 ```sh
 🥵 Ein absolutes High-Performer-Tool, vom wilden Typen für wilde Typen.
 
-Usage: very_vollgas <command> [arguments]
+Usage: NEON <command> [arguments]
 
 Global options:
 -h, --help       Print this usage information.
     --version    Einmal die aktuelle Version to go bitte.
 
 Available commands:
-  abfahrt   very_vollgas abfahrt <output directory>
+  abfahrt   NEON abfahrt <output directory>
             Erstellt ein neues Projekt nach NEON Maßstäben (to the 🌝) im angegebenen Verzeichnis.
 ```
 
@@ -40,14 +40,14 @@ Available commands:
 
 ```sh
 # Erstelle eine neue App die geile_app heißt:
-very_vollgas abfahrt geile_app
+NEON abfahrt geile_app
 ```
 
 #### Was lass ich mich hier auf die Platte schießen?
 
 Alles, was das Template Project drauf hast, findest du im [README des Projektes][template_project_link], unter "What's in the box?"
 
-### `very_vollgas --help`
+### `NEON --help`
 
 Für die hilflosen unter uns.
 
