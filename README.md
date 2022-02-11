@@ -51,7 +51,7 @@ NEON abfahrt geile_app
 
 #### Was lass ich mich hier auf die Platte schießen?
 
-Alles, was das Template Project drauf hast, findest du im [README des Projektes][template_project_link], unter "What's in the box?"
+Alles, was das Template Project drauf hat, findest du im [README des Projektes][template_project_link], unter "What's in the box?"
 
 ### `NEON --help`
 
