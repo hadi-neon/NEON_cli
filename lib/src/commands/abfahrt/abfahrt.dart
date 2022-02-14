@@ -44,7 +44,7 @@ class AbfahrtCommand extends Command<int> {
 
   @override
   String get description =>
-      'Erstellt ein neues Projekt nach NEON Maßstäben (to the 🌝) im angegebenen Verzeichnis.';
+      ' Erstellt ein neues Projekt mit dem angegebenen Namen nach NEON Maßstäben (to the 🌝) im aktuellen Verzeichnis.';
 
   @override
   String get summary => '$invocation\n$description';

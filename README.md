@@ -38,8 +38,8 @@ Global options:
     --version    Einmal die aktuelle Version to go bitte.
 
 Available commands:
-  abfahrt   NEON abfahrt <output directory>
-            Erstellt ein neues Projekt nach NEON Maßstäben (to the 🌝) im angegebenen Verzeichnis.
+  abfahrt   NEON abfahrt <projektname>
+            Erstellt ein neues Projekt mit dem angegebenen Namen nach NEON Maßstäben (to the 🌝) im aktuellen Verzeichnis.
 ```
 
 #### Wie funktioniert's?
