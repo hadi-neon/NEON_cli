@@ -20,7 +20,8 @@ class FileCopyWizard {
     '.flutter-plugins-dependencies',
     '.packages',
     'pubspeck.lock',
-    'pubspec.yaml'
+    'pubspec.yaml',
+    '.git',
   ];
 
   FileCopyWizard({

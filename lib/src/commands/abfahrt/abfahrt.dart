@@ -53,7 +53,7 @@ class AbfahrtCommand extends Command<int> {
   String get name => 'abfahrt';
 
   @override
-  String get invocation => 'NEON abfahrt <output directory>';
+  String get invocation => 'NEON abfahrt <projektname>';
 
   /// [ArgResults] which can be overridden for testing.
   @visibleForTesting

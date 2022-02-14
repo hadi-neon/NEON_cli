@@ -13,7 +13,7 @@ const packageName = 'NEON_cli';
 /// {@endtemplate}
 
 class VeryVollgasCommandRunner extends CommandRunner<int> {
-  /// {@macro very_good_command_runner}
+  /// {@macro very_vollgas_command_runner}
   VeryVollgasCommandRunner({
     required Shell shell,
     Logger? logger,
@@ -28,9 +28,6 @@ class VeryVollgasCommandRunner extends CommandRunner<int> {
       );
 
     addCommand(AbfahrtCommand(logger: logger, shell: shell));
-
-    // addCommand(CreateCommand(analytics: _analytics, logger: logger));
-    // addCommand(PackagesCommand(logger: logger));
   }
 
   /// Standard timeout duration for the CLI.
