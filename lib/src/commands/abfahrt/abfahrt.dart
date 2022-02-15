@@ -77,6 +77,9 @@ class AbfahrtCommand extends Command<int> {
       projectDir: projectDirectory,
     );
 
+    final _platformWiz =
+        ProjectPlatformWizard(projectDirectory: projectDirectory);
+
     final projectName = _projectName;
 
     final generateDone = _logger.progress('Bin Sachen am machen');
@@ -133,6 +136,19 @@ class AbfahrtCommand extends Command<int> {
       return await _cancel(
           errorMessage:
               'Beim Einfügen der Localization Keys in Info.plist ist etwas schiefgelaufen...:',
+          error: e,
+          tmpDir: tmpDir,
+          projectDir: projectDirectory,
+          generateDone: generateDone);
+    }
+
+    try {
+      await _platformWiz.run();
+      _logger.alert('Das iOS Deployment Target ist jetzt $projectPlatform!\n');
+    } catch (e) {
+      return await _cancel(
+          errorMessage:
+              'Beim Ändern des iOS Deployment Targets im XCode Projekt ist etwas schiefgelaufen...:',
           error: e,
           tmpDir: tmpDir,
           projectDir: projectDirectory,

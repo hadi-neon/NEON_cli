@@ -38,6 +38,6 @@ class InfoPlistWizard {
         plistString.substring(start + _splittingKey.length, plistString.length);
     newPlist = tmp1 + localizationKeys + tmp2;
 
-    infoPlist.writeAsString(newPlist);
+    await infoPlist.writeAsString(newPlist);
   }
 }

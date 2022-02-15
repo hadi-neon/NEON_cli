@@ -33,7 +33,7 @@ class FileCopyWizard {
   Future<void> run() async {
     final projectDirectory = Directory(projectDir);
     _copyDirectory(Directory(templateDir), projectDirectory);
-    _copyAndReplaceNameInPubspec();
+    return _copyAndReplaceNameInPubspec();
   }
 
   void _copyDirectory(Directory source, Directory destination) {
