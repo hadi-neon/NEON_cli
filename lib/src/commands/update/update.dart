@@ -48,7 +48,7 @@ class UpdateCommand extends Command<int> {
   Future<int> run() async {
     final generateDone = _logger.progress('Up am Daten...');
 
-    _logger.alert('NEON CLI V2 BITCHEZ');
+    // _logger.alert('NEON CLI V2 BITCHEZ');
 
     final _updateShell = Shell(workingDirectory: _cliPath, verbose: true);
 
