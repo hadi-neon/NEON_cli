@@ -8,7 +8,7 @@ Ein Command Line Interface für Dart, das nur ein Gas kennt.
 
 ## Installieren
 
-Clone dir das Repo direkt in dein Root-Verzeichnis, damit es hier liegt: ```~/NEON_cli```. Das hilft später für den update-Command. Wenn du das nicht machst, willst du dich einfach nur streiten. Jetzt musst du es nur noch global aktivieren:
+Clone dir das Repo (am besten direkt in dein Root-Verzeichnis, damit es hier liegt: ```~/NEON_cli```). Jetzt musst du es nur noch global aktivieren:
 
 ```sh
 dart pub global activate --source path pfad/zu/diesem/verzeichnis
@@ -28,7 +28,7 @@ Erstellt dir ein neues Flutter Projekt anhand des [NEON Template Project][templa
 
 ### `NEON update``
 
-Updated die NEON CLI. Übergib über das ```cli-path``` Flag den absoluten Pfad zu dem CLI-Ordner auf deinem Rechner oder sei ein High-Performer und installiere die CLI im Verzeichnis ```~/NEON_cli```, um dir das Flag zu sparen!
+Updated die NEON CLI. Übergib über das ```cli-path``` Flag den absoluten Pfad zu dem CLI-Ordner auf deinem Rechner.
 
 ```sh
 🥵 Ein absolutes High-Performer-Tool, vom wilden Typen für wilde Typen.

@@ -261,13 +261,14 @@ class AbfahrtCommand extends Command<int> {
   void _validateOutputDirectoryArg(List<String> args) {
     if (args.isEmpty) {
       throw UsageException(
-        'No option specified for the output directory.',
+        'Du musst einen Projektnamen angeben!.',
         usage,
       );
     }
 
     if (args.length > 1) {
-      throw UsageException('Multiple output directories specified.', usage);
+      throw UsageException(
+          'Du kannst deinem Projekt leider nur einen Namen geben...', usage);
     }
   }
 }

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:mason/mason.dart';
 import 'package:process_run/shell.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as path;
 
 /// {@template update_command}
 /// `NEON update` command updates the NEON CLI.
@@ -15,7 +18,6 @@ class UpdateCommand extends Command<int> {
     argParser
       ..addOption(
         'cli-path',
-        mandatory: true,
         help: 'Der Pfad, zu dem CLI-Repo auf deinem Rechner.',
       );
   }
@@ -44,7 +46,6 @@ class UpdateCommand extends Command<int> {
   Future<int> run() async {
     final generateDone = _logger.progress('Up am Daten...');
 
-    // _logger.alert('NEON CLI V2 BITCHEZ');
     final _updateShell = Shell(workingDirectory: _cliPath, verbose: false);
 
     try {
@@ -77,7 +78,28 @@ class UpdateCommand extends Command<int> {
   /// Gets the specified cli path.
   ///
   String get _cliPath {
-    final cliPath = _argResults['cli-path'] as String;
+    final cliPath = _argResults['cli-path'] as String? ??
+        path.basename(path.normalize(_cliDirectory.absolute.path));
     return cliPath;
+  }
+
+  Directory get _cliDirectory {
+    final rest = _argResults.rest;
+    _validateCLIDirectoryArg(rest);
+    return Directory(rest.first);
+  }
+
+  void _validateCLIDirectoryArg(List<String> args) {
+    if (args.isEmpty) {
+      throw UsageException(
+        'Du musst das Verzeichnis, in dem die CLI liegt, angeben!.',
+        usage,
+      );
+    }
+
+    if (args.length > 1) {
+      throw UsageException(
+          'Du musst dich leider für ein Verzeichnis entscheiden...', usage);
+    }
   }
 }
