@@ -48,12 +48,12 @@ class UpdateCommand extends Command<int> {
   Future<int> run() async {
     final generateDone = _logger.progress('Up am Daten...');
 
-    final _updateShell = Shell(workingDirectory: _cliPath, verbose: false);
+    final _updateShell = Shell(workingDirectory: _cliPath, verbose: true);
+
     try {
       _updateShell.run('git pull');
     } catch (e) {
-      _logger.err('fail');
-      _logger.err('$e');
+      _logger.err('Irgendetwas ist beim git pull schiefgelaufen...\n\n$e');
     }
     generateDone('NEON CLI ist up-to-date!');
     return ExitCode.success.code;
