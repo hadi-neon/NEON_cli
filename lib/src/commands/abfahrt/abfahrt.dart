@@ -22,7 +22,7 @@ final RegExp _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
 typedef GeneratorBuilder = Future<MasonGenerator> Function(MasonBundle);
 
 /// {@template abfahrt_command}
-/// `very_vollgas abfahrt` command creates code from the NEON Template Project.
+/// `NEON abfahrt` command creates code from the NEON Template Project.
 /// {@endtemplate}
 class AbfahrtCommand extends Command<int> {
   /// {@macro abfahrt_command}
