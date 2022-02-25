@@ -57,29 +57,29 @@ class UpdateCommand extends Command<int> {
       return ExitCode.software.code;
     }
 
-    try {
-      final deactivateCmd = ProcessCmd(
-        'dart',
-        ['pub', 'global', 'deactivate', 'NEON_cli'],
-      );
-      await runCmd(deactivateCmd);
-    } catch (e) {
-      _logger.err(
-          'Irgendetwas ist beim Deaktivieren der alten CLI Version schiefgelaufen...\nVersuche es manuell:\n\n\ndart pub global deactivate NEON_cli\n\n$e');
-      return ExitCode.software.code;
-    }
+    // try {
+    //   final deactivateCmd = ProcessCmd(
+    //     'dart',
+    //     ['pub', 'global', 'deactivate', 'NEON_cli'],
+    //   );
+    //   await runCmd(deactivateCmd);
+    // } catch (e) {
+    //   _logger.err(
+    //       'Irgendetwas ist beim Deaktivieren der alten CLI Version schiefgelaufen...\nVersuche es manuell:\n\n\ndart pub global deactivate NEON_cli\n\n$e');
+    //   return ExitCode.software.code;
+    // }
 
-    try {
-      final activateCmd = ProcessCmd(
-        'dart',
-        ['pub', 'global', 'activate', '--source', 'path', _cliPath],
-      );
-      await runCmd(activateCmd);
-    } catch (e) {
-      _logger.err(
-          'Irgendetwas ist beim Aktivieren der neuen CLI Version schiefgelaufen...\nVersuche es manuell (wenn du im Verzeichnis bist, in dem das NEON_cli Repo liegt):\n\n\ndart pub global activate --source path ./NEON_cli\n\n$e');
-      return ExitCode.software.code;
-    }
+    // try {
+    //   final activateCmd = ProcessCmd(
+    //     'dart',
+    //     ['pub', 'global', 'activate', '--source', 'path', _cliPath],
+    //   );
+    //   await runCmd(activateCmd);
+    // } catch (e) {
+    //   _logger.err(
+    //       'Irgendetwas ist beim Aktivieren der neuen CLI Version schiefgelaufen...\nVersuche es manuell (wenn du im Verzeichnis bist, in dem das NEON_cli Repo liegt):\n\n\ndart pub global activate --source path ./NEON_cli\n\n$e');
+    //   return ExitCode.software.code;
+    // }
 
     generateDone('NEON CLI ist up-to-date!');
     return ExitCode.success.code;
