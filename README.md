@@ -53,6 +53,12 @@ Available commands:
 NEON abfahrt geile_app
 ```
 
+
+```sh
+# Update die NEON CLI, wenn der CLI-Maintainer deines Vertrauens es dir befiehlt:
+NEON update
+```
+
 #### Was lass ich mich hier auf die Platte schießen?
 
 Alles, was das Template Project drauf hat, findest du im [README des Projektes][template_project_link], unter "What's in the box?"
