@@ -61,8 +61,7 @@ class UpdateCommand extends Command<int> {
       final deactivateCmd = ProcessCmd(
           'dart', ['pub', 'global', 'deactivate' 'NEON_cli'],
           runInShell: true);
-      final tmp = await runCmd(deactivateCmd);
-      print(tmp);
+      await runCmd(deactivateCmd);
     } catch (e) {
       _logger.err(
           'Irgendetwas ist beim Deaktivieren der alten CLI Version schiefgelaufen...\nVersuche es manuell:\n\n\ndart pub global deactivate NEON_cli\n\n$e');
@@ -73,8 +72,7 @@ class UpdateCommand extends Command<int> {
       final activateCmd = ProcessCmd(
           'dart', ['pub', 'global', 'activate', '--source', 'path', _cliPath],
           runInShell: true);
-      final tmp2 = await runCmd(activateCmd);
-      print(tmp2);
+      await runCmd(activateCmd);
     } catch (e) {
       _logger.err(
           'Irgendetwas ist beim Aktivieren der neuen CLI Version schiefgelaufen...\nVersuche es manuell (wenn du im Verzeichnis bist, in dem das NEON_cli Repo liegt):\n\n\ndart pub global activate --source path ./NEON_cli\n\n$e');
