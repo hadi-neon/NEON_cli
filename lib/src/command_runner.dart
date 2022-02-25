@@ -28,6 +28,7 @@ class VeryVollgasCommandRunner extends CommandRunner<int> {
       );
 
     addCommand(AbfahrtCommand(logger: logger, shell: shell));
+    addCommand(UpdateCommand(logger: logger));
   }
 
   /// Standard timeout duration for the CLI.

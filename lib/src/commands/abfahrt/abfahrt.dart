@@ -22,7 +22,7 @@ final RegExp _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
 typedef GeneratorBuilder = Future<MasonGenerator> Function(MasonBundle);
 
 /// {@template abfahrt_command}
-/// `very_vollgas abfahrt` command creates code from the NEON Template Project.
+/// `NEON abfahrt` command creates code from the NEON Template Project.
 /// {@endtemplate}
 class AbfahrtCommand extends Command<int> {
   /// {@macro abfahrt_command}
@@ -44,7 +44,7 @@ class AbfahrtCommand extends Command<int> {
 
   @override
   String get description =>
-      ' Erstellt ein neues Projekt mit dem angegebenen Namen nach NEON Maßstäben (to the 🌝) im aktuellen Verzeichnis.';
+      'Erstellt ein neues Projekt mit dem angegebenen Namen nach NEON Maßstäben (to the 🌝) im aktuellen Verzeichnis.';
 
   @override
   String get summary => '$invocation\n$description';
@@ -261,13 +261,14 @@ class AbfahrtCommand extends Command<int> {
   void _validateOutputDirectoryArg(List<String> args) {
     if (args.isEmpty) {
       throw UsageException(
-        'No option specified for the output directory.',
+        'Du musst einen Projektnamen angeben!.',
         usage,
       );
     }
 
     if (args.length > 1) {
-      throw UsageException('Multiple output directories specified.', usage);
+      throw UsageException(
+          'Du kannst deinem Projekt leider nur einen Namen geben...', usage);
     }
   }
 }

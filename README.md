@@ -8,8 +8,7 @@ Ein Command Line Interface für Dart, das nur ein Gas kennt.
 
 ## Installieren
 
-Du hast dir das Repo ja offensichtlich irgendwo hingeklont. Jetzt musst du es nur noch
-global aktivieren:
+Clone dir das Repo (am besten direkt in dein Root-Verzeichnis, damit es hier liegt: ```~/NEON_cli```, das erleichtert später den update Command). Jetzt musst du es nur noch global aktivieren:
 
 ```sh
 dart pub global activate --source path pfad/zu/diesem/verzeichnis
@@ -27,6 +26,9 @@ dart pub global activate --source path ./NEON_cli
 
 Erstellt dir ein neues Flutter Projekt anhand des [NEON Template Project][template_project_link]. Dauert ungefähr 3.5 Tornados 🍺
 
+### `NEON update``
+
+Updated die NEON CLI. Übergib über das ```cli-path``` Flag den absoluten Pfad zu dem CLI-Ordner auf deinem Rechner, oder sei ein Highperformer und installiere die CLI initial in ```~/NEON_cli```, dann musst du gar kein Flag übergeben! 😤
 
 ```sh
 🥵 Ein absolutes High-Performer-Tool, vom wilden Typen für wilde Typen.
@@ -40,6 +42,8 @@ Global options:
 Available commands:
   abfahrt   NEON abfahrt <projektname>
             Erstellt ein neues Projekt mit dem angegebenen Namen nach NEON Maßstäben (to the 🌝) im aktuellen Verzeichnis.
+  update    NEON update
+            Updated die NEON CLI auf den neuesten Stand der Dinge
 ```
 
 #### Wie funktioniert's?
@@ -58,3 +62,7 @@ Alles, was das Template Project drauf hat, findest du im [README des Projektes][
 Für die Hilflosen unter uns.
 
 [template_project_link]: https://github.com/julien-neon/NEON_template_project
+
+### Maintenance
+
+Solltest du mal zu den glücklichen Seelen gehören, die ein Update für die CLI pushen, dann vergiss nicht, in der ```pubspec.yaml``` die Versionsnummer je nach Change (breaking, major, minor) zu ändern und anschließend ```dart run build_runner build``` laufen zu lassen, damit sich ```lib/src/version.dart``` automagisch aktualisiert!

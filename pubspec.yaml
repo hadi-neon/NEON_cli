@@ -1,6 +1,6 @@
 name: NEON_cli
 description: Ein absolutes High-Performer-Tool, vom wilden Typen für wilde Typen.
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/julien-neon/NEON_cli
 
 environment:
