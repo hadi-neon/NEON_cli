@@ -26,7 +26,7 @@ dart pub global activate --source path ./NEON_cli
 
 Erstellt dir ein neues Flutter Projekt anhand des [NEON Template Project][template_project_link]. Dauert ungefähr 3.5 Tornados 🍺
 
-### `NEON update``
+### `NEON update`
 
 Updated die NEON CLI. Übergib über das ```cli-path``` Flag den absoluten Pfad zu dem CLI-Ordner auf deinem Rechner, oder sei ein Highperformer und installiere die CLI initial in ```~/NEON_cli```, dann musst du gar kein Flag übergeben! 😤
 
