@@ -53,7 +53,7 @@ class UpdateCommand extends Command<int> {
     final _updateShell = Shell(workingDirectory: _cliPath, verbose: true);
 
     try {
-      _updateShell.run('git pull');
+      await _updateShell.run('git pull');
     } catch (e) {
       _logger.err('Irgendetwas ist beim git pull schiefgelaufen...\n\n$e');
     }
