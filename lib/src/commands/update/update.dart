@@ -55,6 +55,7 @@ class UpdateCommand extends Command<int> {
     final _updateShell = Shell(workingDirectory: _cliPath, verbose: true);
 
     try {
+      await _updateShell.cd(_cliPath);
       await _updateShell.run('git pull');
       generateDone('NEON CLI ist up-to-date!');
       return ExitCode.success.code;
