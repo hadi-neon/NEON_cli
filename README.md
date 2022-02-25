@@ -8,8 +8,7 @@ Ein Command Line Interface für Dart, das nur ein Gas kennt.
 
 ## Installieren
 
-Du hast dir das Repo ja offensichtlich irgendwo hingeklont. Jetzt musst du es nur noch
-global aktivieren:
+Clone dir das Repo direkt in dein Root-Verzeichnis, damit es hier liegt: ```~/NEON_cli```. Das hilft später für den update-Command. Wenn du das nicht machst, willst du dich einfach nur streiten. Jetzt musst du es nur noch global aktivieren:
 
 ```sh
 dart pub global activate --source path pfad/zu/diesem/verzeichnis
