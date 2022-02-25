@@ -59,7 +59,7 @@ class UpdateCommand extends Command<int> {
 
     try {
       final deactivateCmd = ProcessCmd(
-          'dart pub global deactivate', ['NEON_cli'],
+          'dart', ['pub', 'global', 'deactivate' 'NEON_cli'],
           runInShell: true);
       final tmp = await runCmd(deactivateCmd);
       print(tmp);
@@ -71,7 +71,7 @@ class UpdateCommand extends Command<int> {
 
     try {
       final activateCmd = ProcessCmd(
-          'dart pub global activate', ['--source', 'path', _cliPath],
+          'dart', ['pub', 'global', 'activate', '--source', 'path', _cliPath],
           runInShell: true);
       final tmp2 = await runCmd(activateCmd);
       print(tmp2);
