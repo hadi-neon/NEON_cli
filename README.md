@@ -62,3 +62,7 @@ Alles, was das Template Project drauf hat, findest du im [README des Projektes][
 Für die Hilflosen unter uns.
 
 [template_project_link]: https://github.com/julien-neon/NEON_template_project
+
+### Maintenance
+
+Solltest du mal zu den glücklichen Seelen gehören, die ein Update für die CLI pushen, dann vergiss nicht, in der ```pubspec.yaml``` die Versionsnummer je nach Change (breaking, major, minor) zu ändern und anschließend ```dart run build_runner build``` laufen zu lassen, damit sich ```lib/src/version.dart``` automagisch aktualisiert!
