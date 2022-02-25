@@ -5,6 +5,7 @@ import 'package:process_run/shell.dart';
 import 'package:meta/meta.dart';
 
 import 'package:path/path.dart' as path;
+import 'package:universal_io/io.dart';
 
 /// {@template update_command}
 /// `NEON update` command updates the NEON CLI.
@@ -48,17 +49,19 @@ class UpdateCommand extends Command<int> {
   Future<int> run() async {
     final generateDone = _logger.progress('Up am Daten...');
 
-    // _logger.alert('NEON CLI V2 BITCHEZ');
+    print(_cliPath);
 
+    // _logger.alert('NEON CLI V2 BITCHEZ');
     final _updateShell = Shell(workingDirectory: _cliPath, verbose: true);
 
     try {
       await _updateShell.run('git pull');
+      generateDone('NEON CLI ist up-to-date!');
+      return ExitCode.success.code;
     } catch (e) {
       _logger.err('Irgendetwas ist beim git pull schiefgelaufen...\n\n$e');
+      return ExitCode.software.code;
     }
-    generateDone('NEON CLI ist up-to-date!');
-    return ExitCode.success.code;
   }
 
   /// Gets the cli path.
