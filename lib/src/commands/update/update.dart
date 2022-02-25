@@ -4,9 +4,6 @@ import 'package:mason/mason.dart';
 import 'package:process_run/shell.dart';
 import 'package:meta/meta.dart';
 
-import 'package:path/path.dart' as path;
-import 'package:universal_io/io.dart';
-
 /// {@template update_command}
 /// `NEON update` command updates the NEON CLI.
 /// {@endtemplate}
@@ -18,8 +15,8 @@ class UpdateCommand extends Command<int> {
     argParser
       ..addOption(
         'cli-path',
-        help:
-            'Der Pfad, zu dem CLI-Repo auf deinem Rechner. Um das Flag nicht mehr setzen zu müssen, clone das Repoo in das Verzeichnis $_defaultCliPath!',
+        mandatory: true,
+        help: 'Der Pfad, zu dem CLI-Repo auf deinem Rechner.',
       );
   }
 
@@ -36,40 +33,51 @@ class UpdateCommand extends Command<int> {
   String get name => 'update';
 
   @override
-  String get invocation => 'NEON update';
+  String get invocation => 'NEON update <cli-path>';
 
   @visibleForTesting
   ArgResults? argResultOverrides;
 
   ArgResults get _argResults => argResultOverrides ?? argResults!;
 
-  final _defaultCliPath = path.join('~', 'NEON_cli');
-
   @override
   Future<int> run() async {
     final generateDone = _logger.progress('Up am Daten...');
 
-    print(_cliPath);
-
     // _logger.alert('NEON CLI V2 BITCHEZ');
-    final _updateShell = Shell(workingDirectory: _cliPath, verbose: true);
+    final _updateShell = Shell(workingDirectory: _cliPath, verbose: false);
 
     try {
-      await _updateShell.cd(_cliPath);
       await _updateShell.run('git pull');
-      generateDone('NEON CLI ist up-to-date!');
-      return ExitCode.success.code;
     } catch (e) {
       _logger.err('Irgendetwas ist beim git pull schiefgelaufen...\n\n$e');
       return ExitCode.software.code;
     }
+
+    try {
+      await _updateShell.run('dart pub global deactivate NEON_cli');
+    } catch (e) {
+      _logger.err(
+          'Irgendetwas ist beim Deaktivieren der alten CLI Version schiefgelaufen...\nVersuche es manuell:\n\n\ndart pub global deactivate NEON_cli\n\n$e');
+      return ExitCode.software.code;
+    }
+
+    try {
+      await _updateShell.run('dart pub global activate --source path .');
+    } catch (e) {
+      _logger.err(
+          'Irgendetwas ist beim Aktivieren der neuen CLI Version schiefgelaufen...\nVersuche es manuell (wenn du im Verzeichnis bist, in dem das NEON_cli Repo liegt):\n\n\ndart pub global activate --source path ./NEON_cli\n\n$e');
+      return ExitCode.software.code;
+    }
+
+    generateDone('NEON CLI ist up-to-date!');
+    return ExitCode.success.code;
   }
 
-  /// Gets the cli path.
+  /// Gets the specified cli path.
   ///
-  /// Uses the [_defaultCliPath] if the `--cli-path` option is not explicitly specified.
   String get _cliPath {
-    final cliPath = _argResults['cli-path'] as String? ?? _defaultCliPath;
+    final cliPath = _argResults['cli-path'] as String;
     return cliPath;
   }
 }
